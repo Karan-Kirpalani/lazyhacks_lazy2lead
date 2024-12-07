@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1-Minute Breathing Exercise</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f7fa;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .exercise-container {
+            background-color: #ffffff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            border-radius: 15px;
+            max-width: 400px;
+            width: 90%;
+            text-align: center;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #2c3e50;
+            font-size: 1.8em;
+            margin-bottom: 10px;
+        }
+
+        p {
+            color: #555;
+            font-size: 1em;
+            line-height: 1.5;
+        }
+
+        button {
+            margin-top: 15px;
+            background-color: #3498db;
+            color: white;
+            font-size: 1em;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #2980b9;
+        }
+
+        audio {
+            margin-top: 20px;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="exercise-container">
+        <h1>1-Minute Breathing Exercise</h1>
+        <p>
+            Relax and focus on your breathing.  
+            Breathe in deeply through your nose for 4 seconds, hold your breath for 4 seconds, and then exhale slowly for 6 seconds.  
+            Let this guided audio help you center your mind and body.
+        </p>
+        <button onclick="startExercise()">Start Exercise</button>
+        <audio id="audio-player" controls hidden>
+            <source id="audio-source" src="breathing.mp3" type="audio/mp3">
+        </audio>
+    </div>
+
+    <script>
+        function startExercise() {
+            const audioPlayer = document.getElementById('audio-player');
+            const audioSource = document.getElementById('audio-source');
+
+           
+            audioSource.src = "breathing.mp3";
+            audioPlayer.load(); 
+            audioPlayer.hidden = false; 
+            audioPlayer.play(); 
+        }
+    </script>
+</body>
+</html>
