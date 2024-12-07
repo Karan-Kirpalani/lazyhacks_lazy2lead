@@ -7,41 +7,74 @@
     <link rel="stylesheet" href="../styles/timer.css">
     <link rel="stylesheet" href="../styles/xpbar.css">
     <style>
-        /* Additional styles for the progress images and button */
+        body {
+            background-color: #FDEFB2;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        h2 {
+            font-size: 2rem;
+            color: #3a3a3a;
+            margin: 20px 0;
+        }
+
+        .hero {
+            background-color: #ffcc80;
+            padding: 20px;
+            border-bottom: 4px solid #e68a00;
+        }
+
         .progress-container {
             display: flex;
             flex-direction: column;
             align-items: center;
-            margin: 20px;
-        }
-        .progress-image {
-            width: 100mm;
-            height: 150mm;
-            object-fit: cover;
-            border: 2px solid #ccc;
+            margin: 20px auto;
+            max-width: 500px;
+            padding: 20px;
             border-radius: 10px;
-            margin-bottom: 10px;
+            background: #fff9e6;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         }
+
+        .progress-image {
+            width: 100%;
+            max-width: 300px;
+            height: auto;
+            object-fit: cover;
+            border: 3px solid #e0e0e0;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+
         .task-button {
-            padding: 10px 20px;
+            padding: 12px 25px;
             font-size: 16px;
-            background-color: #007bff;
+            font-weight: bold;
+            background-color: #f57c00;
             color: white;
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            transition: background-color 0.3s;
+            transition: background-color 0.3s ease, transform 0.2s ease;
         }
+
         .task-button:hover {
-            background-color: #0056b3; /* Darker blue on hover */
+            background-color: #e68a00;
+            transform: scale(1.05);
         }
+
         .task-button:disabled {
             background-color: #ccc;
             cursor: not-allowed;
         }
+
         .status-text {
-            font-size: 16px;
-            margin-top: 10px;
+            font-size: 18px;
+            color: #3a3a3a;
+            margin-top: 15px;
         }
     </style>
 </head>
@@ -50,66 +83,30 @@
         <h2>Welcome to the Study Zone</h2>
     </section>
 
-    <div class="stopwatch">
-        <!-- Timer elements -->
-        <h1 id="displayTime">00:00:00</h1>
-        <div class="buttons">
-            <img id="timerStart" style="width: 30px;" src="../assets/play.png" alt="Start">
-            <img id="timerPause" style="width: 30px;" src="../assets/pause.png" alt="Pause">
-            <img id="timerReset" style="width: 30px;" src="../assets/stop.png" alt="Reset">
-        </div>
-
-        <!-- Progress Container -->
-        <div class="progress-container">
-            <img id="progressImage" class="progress-image" src="../assets/image1.png" alt="Progress">
-            <button id="taskButton" class="task-button">Complete Task</button>
-            <div id="statusText" class="status-text">Starting out... Feeling lazy!</div>
-        </div>
-
-        <!-- Music Player -->
-        <div class="music-player">
-            <h2 class="playing">Now Playing: <span class="song-name"></span></h2>
-            <div class="controls">
-                <div class="sidecontainer">
-                    <input type="range" min="0" max="100" value="100" class="slider" id="volumeSlider">
-                </div>
-                <button id="previous" class="btn previous">
-                    <img class="btn-image" src="../assets/skip-to-start.png" alt="Previous">
-                </button>
-                <button id="play-pause" class="btn play-pause">
-                    <img class="btn-image" src="../assets/play.png" alt="Play/Pause">
-                </button>
-                <button id="next" class="btn next">
-                    <img class="btn-image" src="../assets/skip-to-end.png" alt="Next">
-                </button>
-            </div>
-        </div>
+    <div class="progress-container">
+        <img id="progressImage" class="progress-image" 
+            src="https://github.com/Karan-Kirpalani/progress_bar/blob/ad880d158e52a886fe9d362a0b8935376b2817c7/1.png" 
+            alt="Progress">
+        <button id="taskButton" class="task-button">Complete Task</button>
+        <div id="statusText" class="status-text">Starting out... Feeling lazy!</div>
     </div>
 
-    <script src="../src/stopwatch.js" defer></script>
     <script>
-        // Images and status text for progress
+        // Image and status arrays
         const images = [
-            "../assets/image1.png", // Starting image (lazy sloth)
-            "../assets/image2.png", // Climbing up
-            "../assets/image3.png", // Working hard
-            "../assets/image4.png", // Mental health break
-            "../assets/image5.png", // Completion
-        ];
-        const statuses = [
-            "Starting out... Feeling lazy!",
-            "Making progress... Climbing up!",
-            "Working hard... Keep it up!",
-            "Taking a mental health break... Please wait 2 minutes.",
-            "All tasks completed! Great job!",
+            "https://github.com/Karan-Kirpalani/progress_bar/blob/ad880d158e52a886fe9d362a0b8935376b2817c7/1.png",
+            "https://github.com/Karan-Kirpalani/progress_bar/blob/ad880d158e52a886fe9d362a0b8935376b2817c7/2.png",
+            "https://github.com/Karan-Kirpalani/progress_bar/blob/ad880d158e52a886fe9d362a0b8935376b2817c7/3.png",
+            "https://github.com/Karan-Kirpalani/progress_bar/blob/ad880d158e52a886fe9d362a0b8935376b2817c7/4.png",
+            "https://github.com/Karan-Kirpalani/progress_bar/blob/ad880d158e52a886fe9d362a0b8935376b2817c7/5.png"
         ];
 
-        const soundEffects = [
-            "../assets/sound1.mp3", // For each image change
-            "../assets/sound2.mp3",
-            "../assets/sound3.mp3",
-            "../assets/sound4.mp3",
-            "../assets/sound5.mp3",
+        const statuses = [
+            "Starting out... Feeling lazy!",
+            "Making progress... You're all fired up!",
+            "Working hard... Keep it up!",
+            "Taking a mental health break... Resting for 2 minutes.",
+            "All tasks completed! You're unstoppable!"
         ];
 
         // DOM elements
@@ -117,14 +114,6 @@
         const taskButton = document.getElementById("taskButton");
         const statusText = document.getElementById("statusText");
         let currentIndex = 0;
-
-        // Function to play sound with error handling
-        function playSound(index) {
-            const audio = new Audio(soundEffects[index]);
-            audio.play().catch(error => {
-                console.error("Error playing sound:", error);
-            });
-        }
 
         // Handle button clicks
         taskButton.addEventListener("click", () => {
@@ -134,13 +123,13 @@
                 // Update image and status
                 progressImage.src = images[currentIndex];
                 statusText.textContent = statuses[currentIndex];
-                playSound(currentIndex);
 
                 // Handle mental health break (disable button for 2 minutes)
                 if (currentIndex === 3) {
                     taskButton.disabled = true;
                     setTimeout(() => {
                         taskButton.disabled = false;
+                        statusText.textContent = "Break over! Back to work.";
                     }, 120000); // 2 minutes
                 }
 
@@ -153,4 +142,4 @@
         });
     </script>
 </body>
-</html> 
+</html>
