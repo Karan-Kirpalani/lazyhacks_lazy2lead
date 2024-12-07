@@ -1,10 +1,10 @@
 // Images and status text for progress
 const images = [
-    "../assets/image1.png", // Starting image (lazy sloth)
-    "../assets/image2.png", // Climbing up
-    "../assets/image3.png", // Working hard
-    "../assets/image4.png", // Mental health break
-    "../assets/image5.png", // Completion
+    "../assets/1.png", // Starting image (lazy sloth)
+    "../assets/2.png", // Climbing up
+    "../assets/3.png", // Working hard
+    "../assets/4.png", // Mental health break
+    "../assets/5.png", // Completion
 ];
 
 const statuses = [
