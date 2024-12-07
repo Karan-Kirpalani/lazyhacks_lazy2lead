@@ -68,3 +68,13 @@ with open("sorted.csv", "w") as f:
 
 sd = pd.read_csv("sorted.csv")
 sd.to_html("sorted.html")
+
+# Read the content of sorted.html
+with open("sorted.html", "r", encoding="utf-8") as sorted_file:
+    sorted_content = sorted_file.read()
+
+# Write the content to index.html
+with open("index.html", "w", encoding="utf-8") as index_file:
+    index_file.write(sorted_content)
+
+print("Content of sorted.html has been copied to index.html.")
