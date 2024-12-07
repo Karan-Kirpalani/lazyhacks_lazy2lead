@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Study Time • Lazy2Leader</title>
+    <link rel="stylesheet" href="../styles/timer.css">
+    <link rel="stylesheet" href="../styles/xpbar.css">
+    <style>
+        /* Additional styles for the progress images and button */
+        .progress-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 20px;
+        }
+        .progress-image {
+            width: 100mm;
+            height: 150mm;
+            object-fit: cover;
+            border: 2px solid #ccc;
+            border-radius: 10px;
+            margin-bottom: 10px;
+        }
+        .task-button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .task-button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+        .status-text {
+            font-size: 16px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <section class="hero">
+        <h2>Welcome to the Study Zone</h2>
+    </section>
+
+    <div class="stopwatch">
+        <!-- Timer elements (unchanged from your provided HTML) -->
+        <h1 id="displayTime">00:00:00</h1>
+        <div class="buttons">
+            <img id="timerStart" style="width: 30px;" src="../assets/play.png">
+            <img id="timerPause" style="width: 30px;" src="../assets/pause.png">
+            <img id="timerReset" style="width: 30px;" src="../assets/stop.png">
+        </div>
+
+        <!-- Progress Container -->
+        <div class="progress-container">
+            <img id="progressImage" class="progress-image" src="../assets/image1.png" alt="Progress">
+            <button id="taskButton" class="task-button">Complete Task</button>
+            <div id="statusText" class="status-text">Starting out... Feeling lazy!</div>
+        </div>
+
+        <!-- Music Player (unchanged from your provided HTML) -->
+        <div class="music-player">
+            <h2 class="playing">Now Playing: <span class="song-name"></span></h2>
+            <div class="controls">
+                <div class="sidecontainer">
+                    <input type="range" min="0" max="100" value="100" class="slider" id="volumeSlider">
+                </div>
+                <button id="previous" class="btn previous">
+                    <img class="btn-image" src="../assets/skip-to-start.png">
+                </button>
+                <button id="play-pause" class="btn play-pause">
+                    <img class="btn-image" src="../assets/play.png">
+                </button>
+                <button id="next" class="btn next">
+                    <img class="btn-image" src="../assets/skip-to-end.png">
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../src/stopwatch.js" defer></script>
+    <script>
+        // Images and status text for progress
+        const images = [
+            "../assets/image1.png", // Starting image (lazy sloth)
+            "../assets/image2.png", // Climbing up
+            "../assets/image3.png", // Working hard
+            "../assets/image4.png", // Mental health break
+            "../assets/image5.png", // Completion
+        ];
+        const statuses = [
+            "Starting out... Feeling lazy!",
+            "Making progress... Climbing up!",
+            "Working hard... Keep it up!",
+            "Taking a mental health break... Please wait 2 minutes.",
+            "All tasks completed! Great job!",
+        ];
+
+        const soundEffects = [
+            "../assets/sound1.mp3", // For each image change
+            "../assets/sound2.mp3",
+            "../assets/sound3.mp3",
+            "../assets/sound4.mp3",
+            "../assets/sound5.mp3",
+        ];
+
+        // DOM elements
+        const progressImage = document.getElementById("progressImage");
+        const taskButton = document.getElementById("taskButton");
+        const statusText = document.getElementById("statusText");
+        let currentIndex = 0;
+
+        // Function to play sound
+        function playSound(index) {
+            const audio = new Audio(soundEffects[index]);
+            audio.play();
+        }
+
+        // Handle button clicks
+        taskButton.addEventListener("click", () => {
+            if (currentIndex < images.length - 1) {
+                currentIndex++;
+
+                // Update image and status
+                progressImage.src = images[currentIndex];
+                statusText.textContent = statuses[currentIndex];
+                playSound(currentIndex);
+
+                // Handle mental health break (disable button for 2 minutes)
+                if (currentIndex === 3) {
+                    taskButton.disabled = true;
+                    setTimeout(() => {
+                        taskButton.disabled = false;
+                    }, 120000); // 2 minutes
+                }
+
+                // Update button text for the last step
+                if (currentIndex === images.length - 1) {
+                    taskButton.textContent = "Completed!";
+                    taskButton.disabled = true; // Disable button on final step
+                }
+            }
+        });
+    </script>
+</body>
+</html>
