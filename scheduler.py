@@ -77,39 +77,33 @@ with open("blank.html", "a") as main_file, open("sorted.html", "r") as append_fi
 
 print("HTML content appended successfully.")
 
-
-with open("blank.html", "a") as main_file, open("append.html", "r") as append2_file:
-    # Read content from the file to be appended
-    content_to_append2 = append2_file.read()
-    # Append the content to the main file
-    main_file.write(content_to_append2)
-
-source_file = "blank.html"
-target_file = "index.html"
-
-# Replace the contents of the target file with the source file's contents
+# Read content from sorted.html
 try:
-    with open(source_file, "r") as source:
-        content = source.read()  # Read content from the source file
+    with open("blank.html", "r", encoding="utf-8") as sorted_file:
+        sorted_content = sorted_file.read()
+except FileNotFoundError:
+    print("Error: blank.html not found.")
+    exit(1)
 
-    with open(target_file, "w") as target:
-        target.write(content)  # Overwrite the target file with the content
-
-    print(f"The contents of '{target_file}' have been replaced with those from '{source_file}'.")
+try:
+    with open("index.html", "w", encoding="utf-8") as index_file:
+        index_file.write(sorted_content)
+    print("Content has been successfully copied to index.html.")
 except Exception as e:
-    print(f"An error occurred: {e}")
+    print(f"Error writing to index.html: {e}")
+
 
 source_file2 = "extra.html"
 target_file2 = "blank.html"
 
 try:
-    with open(source_file2, "r") as source2:
-        content2 = source2.read()  # Read content from the source file
+    with open(source_file2, "r") as source:
+        content = source.read()  # Read content from the source file
 
-    with open(target_file2, "w") as target2:
-        target2.write(content2)  # Overwrite the target file with the content
+    with open(target_file2, "w") as target:
+        target.write(content)  # Overwrite the target file with the content
 
-    print(f"The contents of '{target_file}' have been replaced with those from '{source_file}'.")
+    print(f"The contents of '{target_file2}' have been replaced with those from '{source_file2}'.")
 except Exception as e:
     print(f"An error occurred: {e}")
 
