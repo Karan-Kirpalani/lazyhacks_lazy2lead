@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,9 +8,10 @@
         body {
             background-color: #FDEFB2;
             font-family: Arial, sans-serif;
+            text-align: left; /* Default text alignment for layout */
             margin: 0;
             padding: 0;
-            display: flex;
+            display: flex; /* Use flexbox for layout */
             flex-direction: column;
             height: 100vh;
         }
@@ -26,19 +26,17 @@
             background-color: #ffcc80;
             padding: 20px;
             border-bottom: 4px solid #e68a00;
-            text-align: center;
+            text-align: center; /* Keep the hero section centered */
         }
 
         .main-container {
             display: flex;
             flex: 1;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
         }
 
         .progress-container {
-            width: 300px;
+            margin: auto 0 auto auto; /* Align to the far right */
+            width: 300px; /* Fixed width for consistency */
             padding: 20px;
             border-radius: 10px;
             background: #fff9e6;
@@ -83,22 +81,72 @@
             color: #3a3a3a;
             margin-top: 15px;
         }
-
-        table {
-            width: 100%;
-            margin-top: 20px;
-            border-collapse: collapse;
-        }
-
-        th, td {
-            border: 1px solid #ccc;
-            padding: 10px;
-            text-align: center;
-        }
-
-        th {
-            background-color: #f7c873;
-            color: #3a3a3a;
-        }
     </style>
 </head>
+<body>
+    <section class="hero">
+        <h2>Welcome to the Study Zone</h2>
+    </section>
+
+    <div class="main-container">
+        <div class="progress-container">
+            <img id="progressImage" class="progress-image" 
+                src="https://raw.githubusercontent.com/Karan-Kirpalani/progress_bar/ad880d158e52a886fe9d362a0b8935376b2817c7/1.png" 
+                alt="Progress Image">
+            <button id="taskButton" class="task-button">Complete Task</button>
+            <div id="statusText" class="status-text">Starting out... Feeling lazy!</div>
+        </div>
+    </div>
+
+    <script>
+        // Image and status data
+        const images = [
+            "https://raw.githubusercontent.com/Karan-Kirpalani/progress_bar/ad880d158e52a886fe9d362a0b8935376b2817c7/1.png",
+            "https://raw.githubusercontent.com/Karan-Kirpalani/progress_bar/ad880d158e52a886fe9d362a0b8935376b2817c7/2.png",
+            "https://raw.githubusercontent.com/Karan-Kirpalani/progress_bar/ad880d158e52a886fe9d362a0b8935376b2817c7/3.png",
+            "https://raw.githubusercontent.com/Karan-Kirpalani/progress_bar/ad880d158e52a886fe9d362a0b8935376b2817c7/4.png",
+            "https://raw.githubusercontent.com/Karan-Kirpalani/progress_bar/ad880d158e52a886fe9d362a0b8935376b2817c7/5.png"
+        ];
+
+        const statuses = [
+            "Starting out... Feeling lazy!",
+            "Making progress... You're all fired up!",
+            "Working hard... Keep it up!",
+            "Taking a mental health break... Resting for 2 minutes.",
+            "All tasks completed! You're unstoppable!"
+        ];
+
+        // DOM Elements
+        const progressImage = document.getElementById("progressImage");
+        const taskButton = document.getElementById("taskButton");
+        const statusText = document.getElementById("statusText");
+        let currentIndex = 0;
+
+        // Button click handler
+        taskButton.addEventListener("click", () => {
+            if (currentIndex < images.length - 1) {
+                currentIndex++;
+
+                // Update image and status
+                progressImage.src = images[currentIndex];
+                statusText.textContent = statuses[currentIndex];
+
+                // Handle mental health break (disable button for 2 minutes)
+                if (currentIndex === 3) {
+                    taskButton.disabled = true;
+                    setTimeout(() => {
+                        taskButton.disabled = false;
+                        statusText.textContent = "Break over! Back to work.";
+                    }, 120000); // 2 minutes
+                }
+
+                // Update button text on completion
+                if (currentIndex === images.length - 1) {
+                    taskButton.textContent = "Completed!";
+                    taskButton.disabled = true;
+                }
+            }
+        });
+    </script>
+</body>
+</html>
