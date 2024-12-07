@@ -8,9 +8,12 @@
         body {
             background-color: #FDEFB2;
             font-family: Arial, sans-serif;
-            text-align: center;
+            text-align: left; /* Default text alignment for layout */
             margin: 0;
             padding: 0;
+            display: flex; /* Use flexbox for layout */
+            flex-direction: column;
+            height: 100vh;
         }
 
         h2 {
@@ -23,18 +26,22 @@
             background-color: #ffcc80;
             padding: 20px;
             border-bottom: 4px solid #e68a00;
+            text-align: center; /* Keep the hero section centered */
+        }
+
+        .main-container {
+            display: flex;
+            flex: 1;
         }
 
         .progress-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin: 20px auto;
-            max-width: 500px;
+            margin: auto 0 auto auto; /* Align to the far right */
+            width: 300px; /* Fixed width for consistency */
             padding: 20px;
             border-radius: 10px;
             background: #fff9e6;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
         }
 
         .progress-image {
@@ -78,15 +85,17 @@
 </head>
 <body>
     <section class="hero">
-        <h2>Welcome to the Lazy2Lead</h2>
+        <h2>Welcome to the Study Zone</h2>
     </section>
 
-    <div class="progress-container">
-        <img id="progressImage" class="progress-image" 
-            src="https://raw.githubusercontent.com/Karan-Kirpalani/progress_bar/ad880d158e52a886fe9d362a0b8935376b2817c7/1.png" 
-            alt="Progress Image">
-        <button id="taskButton" class="task-button">Complete Task</button>
-        <div id="statusText" class="status-text">Starting out... Feeling lazy!</div>
+    <div class="main-container">
+        <div class="progress-container">
+            <img id="progressImage" class="progress-image" 
+                src="https://raw.githubusercontent.com/Karan-Kirpalani/progress_bar/ad880d158e52a886fe9d362a0b8935376b2817c7/1.png" 
+                alt="Progress Image">
+            <button id="taskButton" class="task-button">Complete Task</button>
+            <div id="statusText" class="status-text">Starting out... Feeling lazy!</div>
+        </div>
     </div>
 
     <script>
