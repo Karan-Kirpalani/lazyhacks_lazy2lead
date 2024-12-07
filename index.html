@@ -1,57 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Study Progress Tracker</title>
     <style>
         body {
-            background-color: #FDEFB2;
-            font-family: Arial, sans-serif;
-            text-align: left; /* Default text alignment for layout */
+            background-color: #FDEFB2; /* Match Lazy2Leader background */
+            font-family: Arial, sans-serif; /* Simple and clean font */
             margin: 0;
             padding: 0;
-            display: flex; /* Use flexbox for layout */
+            display: flex;
             flex-direction: column;
             height: 100vh;
         }
 
         h2 {
-            font-size: 2rem;
-            color: #3a3a3a;
+            font-size: 2.5rem; /* Larger font for headers */
+            color: #3a3a3a; /* Neutral color */
             margin: 20px 0;
         }
 
         .hero {
-            background-color: #ffcc80;
+            background-color: #FFCC80;
             padding: 20px;
-            border-bottom: 4px solid #e68a00;
-            text-align: center; /* Keep the hero section centered */
+            border-bottom: 4px solid #E68A00;
+            text-align: center;
+            font-family: 'Arial', sans-serif;
         }
 
         .main-container {
             display: flex;
             flex: 1;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
         }
 
         .progress-container {
-            margin: auto 0 auto auto; /* Align to the far right */
-            width: 300px; /* Fixed width for consistency */
-            padding: 20px;
-            border-radius: 10px;
-            background: #fff9e6;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
             text-align: center;
+            width: 50%;
+            background: #FFF9E6;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 15px;
+            padding: 30px;
         }
 
         .progress-image {
             width: 100%;
             max-width: 300px;
             height: auto;
-            object-fit: cover;
-            border: 3px solid #e0e0e0;
             border-radius: 10px;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
         }
 
         .task-button {
@@ -67,7 +68,7 @@
         }
 
         .task-button:hover {
-            background-color: #e68a00;
+            background-color: #E68A00;
             transform: scale(1.05);
         }
 
@@ -81,8 +82,43 @@
             color: #3a3a3a;
             margin-top: 15px;
         }
+
+        /* XP Progress Bar Styles */
+        .xp-container {
+            position: relative;
+            margin: 30px auto;
+            width: 90%;
+        }
+
+        .xp-bar {
+            width: 100%;
+            height: 30px;
+            background-color: #E0E0E0;
+            border-radius: 15px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .xp-fill {
+            width: 0%;
+            height: 100%;
+            background: linear-gradient(90deg, #FFA726, #FB8C00);
+            border-radius: 15px;
+            transition: width 0.5s ease-in-out;
+        }
+
+        .level-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 16px;
+            color: #3a3a3a;
+            font-weight: bold;
+        }
     </style>
 </head>
+
 <body>
     <section class="hero">
         <h2>Welcome to the Study Zone</h2>
@@ -90,9 +126,18 @@
 
     <div class="main-container">
         <div class="progress-container">
-            <img id="progressImage" class="progress-image" 
-                src="https://raw.githubusercontent.com/Karan-Kirpalani/progress_bar/ad880d158e52a886fe9d362a0b8935376b2817c7/1.png" 
+            <img id="progressImage" class="progress-image"
+                src="https://raw.githubusercontent.com/Karan-Kirpalani/progress_bar/ad880d158e52a886fe9d362a0b8935376b2817c7/1.png"
                 alt="Progress Image">
+
+            <!-- XP Bar -->
+            <div class="xp-container">
+                <div class="xp-bar">
+                    <div class="xp-fill" id="xpFill"></div>
+                    <span class="level-text" id="levelText">Lv. 1</span>
+                </div>
+            </div>
+
             <button id="taskButton" class="task-button">Complete Task</button>
             <div id="statusText" class="status-text">Starting out... Feeling lazy!</div>
         </div>
@@ -116,11 +161,24 @@
             "All tasks completed! You're unstoppable!"
         ];
 
+        // XP and Level Data
+        const xpLevels = [0, 20, 40, 60, 80, 100];
+        let currentIndex = 0;
+        let currentXP = 0;
+
         // DOM Elements
         const progressImage = document.getElementById("progressImage");
         const taskButton = document.getElementById("taskButton");
         const statusText = document.getElementById("statusText");
-        let currentIndex = 0;
+        const xpFill = document.getElementById("xpFill");
+        const levelText = document.getElementById("levelText");
+
+        // Update XP Bar and Level
+        const updateXPBar = () => {
+            currentXP = xpLevels[currentIndex];
+            xpFill.style.width = `${currentXP}%`;
+            levelText.textContent = `Lv. ${currentIndex + 1}`;
+        };
 
         // Button click handler
         taskButton.addEventListener("click", () => {
@@ -131,7 +189,10 @@
                 progressImage.src = images[currentIndex];
                 statusText.textContent = statuses[currentIndex];
 
-                // Handle mental health break (disable button for 2 minutes)
+                // Update XP
+                updateXPBar();
+
+                // Handle mental health break
                 if (currentIndex === 3) {
                     taskButton.disabled = true;
                     setTimeout(() => {
@@ -147,6 +208,10 @@
                 }
             }
         });
+
+        // Initialize XP Bar
+        updateXPBar();
     </script>
 </body>
+
 </html>
