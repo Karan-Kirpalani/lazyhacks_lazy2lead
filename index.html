@@ -81,6 +81,13 @@
             color: #3a3a3a;
             margin-top: 15px;
         }
+
+        .embedded-content {
+            width: 100%;
+            border: none;
+            height: 300px; /* Adjust height as needed */
+            margin-top: 20px;
+        }
     </style>
 </head>
 <body>
@@ -96,47 +103,10 @@
             <button id="taskButton" class="task-button">Complete Task</button>
             <div id="statusText" class="status-text">Starting out... Feeling lazy!</div>
         </div>
-
-
-        <table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>Name</th>
-      <th>Weight</th>
-      <th>Due Date</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>english essay</th>
-      <td>2024-12-13 13:00:00</td>
-      <td>major assessment</td>
-      <td>35</td>
-    </tr>
-    <tr>
-      <th>spanish paragraph</th>
-      <td>2024-12-19 23:59:00</td>
-      <td>minor assessment</td>
-      <td>26</td>
-    </tr>
-    <tr>
-      <th>history study</th>
-      <td>2024-12-21 09:30:00</td>
-      <td>test preparations</td>
-      <td>23</td>
-    </tr>
-    <tr>
-      <th>math isu</th>
-      <td>2024-12-31 23:59:00</td>
-      <td>major assessment</td>
-      <td>16</td>
-    </tr>
-  </tbody>
-</table>
-
-        
     </div>
+
+    <!-- Embed sorted.html -->
+    <iframe src="sorted.html" class="embedded-content"></iframe>
 
     <script>
         // Image and status data
@@ -188,7 +158,5 @@
             }
         });
     </script>
-    <script> src = "script.js" </script>
 </body>
 </html>
-
