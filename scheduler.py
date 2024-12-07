@@ -68,3 +68,12 @@ with open("sorted.csv", "w") as f:
 
 sd = pd.read_csv("sorted.csv")
 sd.to_html("sorted.html")
+
+with open("index.html", "a") as main_file, open("sorted.html", "r") as append_file:
+    # Read content from the file to be appended
+    content_to_append = append_file.read()
+    # Append the content to the main file
+    main_file.write(content_to_append)
+
+print("HTML content appended successfully.")
+
