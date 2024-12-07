@@ -62,7 +62,7 @@ for task in tasks:
 print("\nSorted Due Dates:")
 print(sorted(due_dates))
 with open("sorted.csv", "w") as f:
-    f.write("Name,Weight,Due Date\n")
+    f.write("Name,Due Date,Weight,Priority\n")
     for task in tasks:
         f.write(f"{task[0]},{task[1]},{task[2]},{task[3]}\n")
 
