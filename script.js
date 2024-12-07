@@ -17,7 +17,7 @@ const statuses = [
 
 const soundEffects = [
     "/sound1.mp3", // For each image change
-    "/sound 2.mp3",
+    "/sound2.mp3", // Fixed the space in the filename
     "/sound3.mp3",
     "/sound4.mp3",
 ];
@@ -31,7 +31,9 @@ let currentIndex = 0;
 // Function to play sound
 function playSound(index) {
     const audio = new Audio(soundEffects[index]);
-    audio.play();
+    audio.play().catch(error => {
+        console.error("Error playing sound:", error);
+    });
 }
 
 // Handle button clicks
