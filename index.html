@@ -8,18 +8,11 @@
         body {
             background-color: #FDEFB2;
             font-family: Arial, sans-serif;
-            text-align: left;
             margin: 0;
             padding: 0;
             display: flex;
-            flex-direction: column;
             height: 100vh;
-        }
-
-        h2 {
-            font-size: 2rem;
-            color: #3a3a3a;
-            margin: 20px 0;
+            flex-direction: column;
         }
 
         .hero {
@@ -29,11 +22,64 @@
             text-align: center;
         }
 
-        .main-container, .exercise-container {
-            display: flex;
+        h2 {
+            font-size: 2rem;
+            color: #3a3a3a;
+        }
+
+        .main-container {
             flex: 1;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .exercise-container {
+            display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
+            background-color: #ffffff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            border-radius: 15px;
+            max-width: 400px;
+            width: 90%;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .exercise-container h1 {
+            color: #2c3e50;
+            font-size: 1.8em;
+            margin-bottom: 10px;
+        }
+
+        .exercise-container p {
+            color: #555;
+            font-size: 1em;
+            line-height: 1.5;
+        }
+
+        .exercise-container button {
+            margin-top: 15px;
+            background-color: #3498db;
+            color: white;
+            font-size: 1em;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .exercise-container button:hover {
+            background-color: #2980b9;
+        }
+
+        .exercise-container audio {
+            margin-top: 20px;
+            width: 100%;
         }
 
         .progress-container {
@@ -82,51 +128,6 @@
             color: #3a3a3a;
             margin-top: 15px;
         }
-
-        .exercise-container {
-            background-color: #ffffff;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            border-radius: 15px;
-            max-width: 400px;
-            width: 90%;
-            text-align: center;
-            padding: 20px;
-            display: none;
-            flex-direction: column;
-        }
-
-        .exercise-container h1 {
-            color: #2c3e50;
-            font-size: 1.8em;
-            margin-bottom: 10px;
-        }
-
-        .exercise-container p {
-            color: #555;
-            font-size: 1em;
-            line-height: 1.5;
-        }
-
-        .exercise-container button {
-            margin-top: 15px;
-            background-color: #3498db;
-            color: white;
-            font-size: 1em;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-        .exercise-container button:hover {
-            background-color: #2980b9;
-        }
-
-        .exercise-container audio {
-            margin-top: 20px;
-            width: 100%;
-        }
     </style>
 </head>
 <body>
@@ -135,14 +136,6 @@
     </section>
 
     <div class="main-container">
-        <div class="progress-container" id="progressContainer">
-            <img id="progressImage" class="progress-image" 
-                src="https://raw.githubusercontent.com/Karan-Kirpalani/progress_bar/ad880d158e52a886fe9d362a0b8935376b2817c7/1.png" 
-                alt="Progress Image">
-            <button id="taskButton" class="task-button">Complete Task</button>
-            <div id="statusText" class="status-text">Starting out... Feeling lazy!</div>
-        </div>
-
         <div class="exercise-container" id="exerciseContainer">
             <h1>1-Minute Breathing Exercise</h1>
             <p>
@@ -154,6 +147,14 @@
             <audio id="audio-player" controls hidden>
                 <source id="audio-source" src="breathing.mp3" type="audio/mp3">
             </audio>
+        </div>
+
+        <div class="progress-container" id="progressContainer">
+            <img id="progressImage" class="progress-image" 
+                src="https://raw.githubusercontent.com/Karan-Kirpalani/progress_bar/ad880d158e52a886fe9d362a0b8935376b2817c7/1.png" 
+                alt="Progress Image">
+            <button id="taskButton" class="task-button">Complete Task</button>
+            <div id="statusText" class="status-text">Starting out... Feeling lazy!</div>
         </div>
     </div>
 
@@ -195,7 +196,7 @@
 
                     setTimeout(() => {
                         taskButton.disabled = false;
-                        progressContainer.style.display = "flex";
+                        progressContainer.style.display = "block";
                         exerciseContainer.style.display = "none";
                         statusText.textContent = "Break over! Back to work.";
                     }, 120000); // 2 minutes
