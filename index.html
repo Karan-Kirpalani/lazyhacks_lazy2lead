@@ -30,6 +30,10 @@
             border: none;
             border-radius: 5px;
             cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .task-button:hover {
+            background-color: #0056b3; /* Darker blue on hover */
         }
         .task-button:disabled {
             background-color: #ccc;
@@ -47,12 +51,12 @@
     </section>
 
     <div class="stopwatch">
-        <!-- Timer elements (unchanged from your provided HTML) -->
+        <!-- Timer elements -->
         <h1 id="displayTime">00:00:00</h1>
         <div class="buttons">
-            <img id="timerStart" style="width: 30px;" src="../assets/play.png">
-            <img id="timerPause" style="width: 30px;" src="../assets/pause.png">
-            <img id="timerReset" style="width: 30px;" src="../assets/stop.png">
+            <img id="timerStart" style="width: 30px;" src="../assets/play.png" alt="Start">
+            <img id="timerPause" style="width: 30px;" src="../assets/pause.png" alt="Pause">
+            <img id="timerReset" style="width: 30px;" src="../assets/stop.png" alt="Reset">
         </div>
 
         <!-- Progress Container -->
@@ -62,7 +66,7 @@
             <div id="statusText" class="status-text">Starting out... Feeling lazy!</div>
         </div>
 
-        <!-- Music Player (unchanged from your provided HTML) -->
+        <!-- Music Player -->
         <div class="music-player">
             <h2 class="playing">Now Playing: <span class="song-name"></span></h2>
             <div class="controls">
@@ -70,13 +74,13 @@
                     <input type="range" min="0" max="100" value="100" class="slider" id="volumeSlider">
                 </div>
                 <button id="previous" class="btn previous">
-                    <img class="btn-image" src="../assets/skip-to-start.png">
+                    <img class="btn-image" src="../assets/skip-to-start.png" alt="Previous">
                 </button>
                 <button id="play-pause" class="btn play-pause">
-                    <img class="btn-image" src="../assets/play.png">
+                    <img class="btn-image" src="../assets/play.png" alt="Play/Pause">
                 </button>
                 <button id="next" class="btn next">
-                    <img class="btn-image" src="../assets/skip-to-end.png">
+                    <img class="btn-image" src="../assets/skip-to-end.png" alt="Next">
                 </button>
             </div>
         </div>
@@ -114,10 +118,12 @@
         const statusText = document.getElementById("statusText");
         let currentIndex = 0;
 
-        // Function to play sound
+        // Function to play sound with error handling
         function playSound(index) {
             const audio = new Audio(soundEffects[index]);
-            audio.play();
+            audio.play().catch(error => {
+                console.error("Error playing sound:", error);
+            });
         }
 
         // Handle button clicks
@@ -147,4 +153,4 @@
         });
     </script>
 </body>
-</html>
+</html> ⬤
