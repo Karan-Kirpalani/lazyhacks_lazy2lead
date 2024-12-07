@@ -3,18 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Study Progress and Data Scraper</title>
+    <title>Study Progress Tracker</title>
     <style>
         body {
             background-color: #FDEFB2;
             font-family: Arial, sans-serif;
+            text-align: left;
             margin: 0;
             padding: 0;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
         }
 
-        h1, h2 {
-            text-align: center;
+        h2 {
+            font-size: 2rem;
             color: #3a3a3a;
+            margin: 20px 0;
         }
 
         .hero {
@@ -24,24 +29,19 @@
             text-align: center;
         }
 
-        .main-container {
+        .main-container, .exercise-container {
             display: flex;
-            flex-wrap: wrap;
-            padding: 20px;
+            flex: 1;
             justify-content: center;
+            align-items: center;
         }
 
-        .section {
-            margin: 20px;
+        .progress-container {
+            width: 300px;
             padding: 20px;
             border-radius: 10px;
             background: #fff9e6;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            width: 400px;
-            text-align: center;
-        }
-
-        .progress-container {
             text-align: center;
         }
 
@@ -77,34 +77,65 @@
             cursor: not-allowed;
         }
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
+        .status-text {
+            font-size: 18px;
+            color: #3a3a3a;
             margin-top: 15px;
         }
 
-        table th, table td {
-            border: 1px solid #ddd;
-            padding: 8px;
+        .exercise-container {
+            background-color: #ffffff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            border-radius: 15px;
+            max-width: 400px;
+            width: 90%;
+            text-align: center;
+            padding: 20px;
+            display: none;
+            flex-direction: column;
         }
 
-        table th {
-            background-color: #f57c00;
+        .exercise-container h1 {
+            color: #2c3e50;
+            font-size: 1.8em;
+            margin-bottom: 10px;
+        }
+
+        .exercise-container p {
+            color: #555;
+            font-size: 1em;
+            line-height: 1.5;
+        }
+
+        .exercise-container button {
+            margin-top: 15px;
+            background-color: #3498db;
             color: white;
+            font-size: 1em;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .exercise-container button:hover {
+            background-color: #2980b9;
+        }
+
+        .exercise-container audio {
+            margin-top: 20px;
+            width: 100%;
         }
     </style>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.1/xlsx.full.min.js"></script>
 </head>
 <body>
     <section class="hero">
-        <h1>Welcome to the Study Zone</h1>
-        <h2>Track Progress and Analyze Data</h2>
+        <h2>Welcome to the Study Zone</h2>
     </section>
 
     <div class="main-container">
-        <!-- Progress Tracker Section -->
-        <div class="section progress-container">
-            <h2>Study Progress Tracker</h2>
+        <div class="progress-container" id="progressContainer">
             <img id="progressImage" class="progress-image" 
                 src="https://raw.githubusercontent.com/Karan-Kirpalani/progress_bar/ad880d158e52a886fe9d362a0b8935376b2817c7/1.png" 
                 alt="Progress Image">
@@ -112,22 +143,21 @@
             <div id="statusText" class="status-text">Starting out... Feeling lazy!</div>
         </div>
 
-        <!-- Spreadsheet Upload Section -->
-        <div class="section">
-            <h2>Upload Spreadsheet</h2>
-            <input type="file" id="file-input" accept=".xlsx,.xls,.csv" />
-            <h3>Extracted Data</h3>
-            <table id="data-table">
-                <thead>
-                    <tr></tr>
-                </thead>
-                <tbody></tbody>
-            </table>
+        <div class="exercise-container" id="exerciseContainer">
+            <h1>1-Minute Breathing Exercise</h1>
+            <p>
+                Relax and focus on your breathing.  
+                Breathe in deeply through your nose for 4 seconds, hold your breath for 4 seconds, and then exhale slowly for 6 seconds.  
+                Let this guided audio help you center your mind and body.
+            </p>
+            <button onclick="startExercise()">Start Exercise</button>
+            <audio id="audio-player" controls hidden>
+                <source id="audio-source" src="breathing.mp3" type="audio/mp3">
+            </audio>
         </div>
     </div>
 
     <script>
-        // Progress Tracker Logic
         const images = [
             "https://raw.githubusercontent.com/Karan-Kirpalani/progress_bar/ad880d158e52a886fe9d362a0b8935376b2817c7/1.png",
             "https://raw.githubusercontent.com/Karan-Kirpalani/progress_bar/ad880d158e52a886fe9d362a0b8935376b2817c7/2.png",
@@ -147,20 +177,28 @@
         const progressImage = document.getElementById("progressImage");
         const taskButton = document.getElementById("taskButton");
         const statusText = document.getElementById("statusText");
+        const exerciseContainer = document.getElementById("exerciseContainer");
+        const progressContainer = document.getElementById("progressContainer");
         let currentIndex = 0;
 
         taskButton.addEventListener("click", () => {
             if (currentIndex < images.length - 1) {
                 currentIndex++;
+
                 progressImage.src = images[currentIndex];
                 statusText.textContent = statuses[currentIndex];
 
                 if (currentIndex === 3) {
                     taskButton.disabled = true;
+                    progressContainer.style.display = "none";
+                    exerciseContainer.style.display = "flex";
+
                     setTimeout(() => {
                         taskButton.disabled = false;
+                        progressContainer.style.display = "flex";
+                        exerciseContainer.style.display = "none";
                         statusText.textContent = "Break over! Back to work.";
-                    }, 120000);
+                    }, 120000); // 2 minutes
                 }
 
                 if (currentIndex === images.length - 1) {
@@ -170,62 +208,10 @@
             }
         });
 
-        // Spreadsheet Upload Logic
-        document.getElementById('file-input').addEventListener('change', function (event) {
-            const file = event.target.files[0];
-            if (file) {
-                readSpreadsheet(file);
-            }
-        });
-
-        function readSpreadsheet(file) {
-            const reader = new FileReader();
-
-            reader.onload = function (e) {
-                const data = e.target.result;
-                const workbook = XLSX.read(data, { type: 'binary' });
-                const sheetName = workbook.SheetNames[0];
-                const sheet = workbook.Sheets[sheetName];
-                const jsonData = XLSX.utils.sheet_to_json(sheet);
-                displayData(jsonData);
-            };
-
-            reader.readAsBinaryString(file);
-        }
-
-        function displayData(data) {
-            const table = document.getElementById('data-table');
-            const tbody = table.querySelector('tbody');
-            const thead = table.querySelector('thead tr');
-
-            tbody.innerHTML = '';
-            thead.innerHTML = '';
-
-            if (data.length > 0) {
-                const headers = Object.keys(data[0]);
-                headers.forEach(header => {
-                    const th = document.createElement('th');
-                    th.textContent = header;
-                    thead.appendChild(th);
-                });
-
-                data.forEach(row => {
-                    const tr = document.createElement('tr');
-                    headers.forEach(header => {
-                        const td = document.createElement('td');
-                        td.textContent = row[header] || '';
-                        tr.appendChild(td);
-                    });
-                    tbody.appendChild(tr);
-                });
-            } else {
-                const tr = document.createElement('tr');
-                const td = document.createElement('td');
-                td.colSpan = 100;
-                td.textContent = 'No data found';
-                tr.appendChild(td);
-                tbody.appendChild(tr);
-            }
+        function startExercise() {
+            const audioPlayer = document.getElementById('audio-player');
+            audioPlayer.hidden = false;
+            audioPlayer.play();
         }
     </script>
 </body>
