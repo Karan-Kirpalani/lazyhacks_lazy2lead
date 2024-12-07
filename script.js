@@ -1,26 +1,25 @@
 // Images and status text for progress
 const images = [
-    "../assets/1.png", // Starting image (lazy sloth)
-    "../assets/2.png", // Climbing up
-    "../assets/3.png", // Working hard
-    "../assets/4.png", // Mental health break
-    "../assets/5.png", // Completion
+    "/1.png", // Starting image (lazy sloth)
+    "/2.png", // Climbing up
+    "/3.png", // Working hard
+    "/4.png", // Mental health break
+    "/5.png", // Completion (Crown)
 ];
 
 const statuses = [
     "Starting out... Feeling lazy!",
-    "Making progress... Your all fired up!",
+    "Making progress... You're all fired up!",
     "Working hard... Keep it up!",
     "Taking a mental health break... Please wait 2 minutes.",
     "All tasks completed! Great job!",
 ];
 
 const soundEffects = [
-    "../assets/sound1.mp3", // For each image change
-    "../assets/sound2.mp3",
-    "../assets/sound3.mp3",
-    "../assets/sound4.mp3",
-    "../assets/sound5.mp3",
+    "/sound1.mp3", // For each image change
+    "/sound2.mp3",
+    "/sound3.mp3",
+    "/sound4.mp3",
 ];
 
 // DOM elements
