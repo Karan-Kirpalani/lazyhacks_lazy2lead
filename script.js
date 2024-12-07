@@ -17,7 +17,7 @@ const statuses = [
 
 const soundEffects = [
     "/sound1.mp3", // For each image change
-    "/sound2.mp3",
+    "/sound 2.mp3",
     "/sound3.mp3",
     "/sound4.mp3",
 ];
