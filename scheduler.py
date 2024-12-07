@@ -77,3 +77,10 @@ with open("index.html", "a") as main_file, open("sorted.html", "r") as append_fi
 
 print("HTML content appended successfully.")
 
+
+with open("index.html", "a") as main_file, open("append.html", "r") as append2_file:
+    # Read content from the file to be appended
+    content_to_append2 = append2_file.read()
+    # Append the content to the main file
+    main_file.write(content_to_append2)
+
