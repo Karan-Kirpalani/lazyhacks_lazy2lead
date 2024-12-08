@@ -8,7 +8,7 @@
         body {
             background-color: #FDEFB2;
             font-family: Arial, sans-serif;
-            text-align: left;
+            text-align: center;
             margin: 0;
             padding: 0;
             display: flex;
@@ -26,29 +26,27 @@
             background-color: #ffcc80;
             padding: 20px;
             border-bottom: 4px solid #e68a00;
-            text-align: center;
         }
 
         .main-container {
             display: flex;
+            flex-direction: column;
+            align-items: center;
             flex: 1;
+            padding: 20px;
         }
 
         .progress-container {
-            margin: auto 0 auto auto;
+            margin: 20px 0;
             width: 300px;
             padding: 20px;
             border-radius: 10px;
             background: #fff9e6;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            text-align: center;
         }
 
         .progress-image {
             width: 100%;
-            max-width: 300px;
-            height: auto;
-            object-fit: cover;
             border: 3px solid #e0e0e0;
             border-radius: 10px;
             margin-bottom: 15px;
@@ -66,7 +64,7 @@
             transition: background-color 0.3s ease, transform 0.2s ease;
         }
 
-        .task-button:hover {
+        .task-button:hover:not(:disabled) {
             background-color: #e68a00;
             transform: scale(1.05);
         }
@@ -90,7 +88,6 @@
             max-width: 400px;
             text-align: center;
             padding: 20px;
-            margin: auto;
         }
 
         .exercise-container h1,
@@ -140,11 +137,11 @@
             <p>
                 Relax and focus on your breathing.  
                 Breathe in deeply through your nose for 4 seconds, hold for 4 seconds, and then exhale slowly for 6 seconds.  
-                Let this guided audio help you center your mind and body.
             </p>
             <button onclick="startExercise()">Start Exercise</button>
-            <audio id="audio-player" controls hidden>
-                <source id="audio-source" src="breathing.mp3" type="audio/mp3">
+            <audio id="audio-player" controls style="display: none;">
+                <source src="breathing.mp3" type="audio/mp3">
+                Your browser does not support the audio element.
             </audio>
         </div>
     </div>
@@ -175,7 +172,6 @@
         taskButton.addEventListener("click", () => {
             if (currentIndex < images.length - 1) {
                 currentIndex++;
-
                 progressImage.src = images[currentIndex];
                 statusText.textContent = statuses[currentIndex];
 
@@ -185,7 +181,7 @@
                         taskButton.disabled = false;
                         statusText.textContent = "Break over! Time for a breathing exercise!";
                         exerciseContainer.style.display = "block";
-                    }, 120000); // 2-minute break
+                    }, 120000);
                 }
 
                 if (currentIndex === images.length - 1) {
@@ -197,9 +193,10 @@
 
         function startExercise() {
             const audioPlayer = document.getElementById("audio-player");
-            audioPlayer.hidden = false; 
+            audioPlayer.style.display = "block";
             audioPlayer.play();
         }
     </script>
 </body>
 </html>
+
