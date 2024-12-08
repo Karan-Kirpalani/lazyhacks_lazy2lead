@@ -35,9 +35,15 @@
             gap: 20px;
         }
 
-        iframe {
+        .timer-container {
             flex: 1;
-            border: none;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 3rem;
+            font-weight: bold;
+            color: #3a3a3a;
+            background-color: #fff9e6;
             border-radius: 10px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         }
@@ -136,9 +142,7 @@
     </section>
 
     <div class="content-container">
-        <iframe 
-            src="https://docs.google.com/spreadsheets/d/e/2PACX-1vSTfRDUKrXsbc6phRH61jMMin0mIFwsyzzIaOKBz4h54Jj0vHqpZyy25oluQHBVh-kJ9vUYVmGfXxBQ/pubhtml" 
-            title="Google Sheet"></iframe>
+        <div id="timerContainer" class="timer-container">00:00</div>
 
         <div class="main-container">
             <div class="progress-container">
@@ -184,8 +188,10 @@
         const progressImage = document.getElementById("progressImage");
         const taskButton = document.getElementById("taskButton");
         const statusText = document.getElementById("statusText");
+        const timerContainer = document.getElementById("timerContainer");
         const exerciseContainer = document.getElementById("exerciseContainer");
         let currentIndex = 0;
+        let timerInterval = null;
 
         taskButton.addEventListener("click", () => {
             if (currentIndex < images.length - 1) {
@@ -195,11 +201,11 @@
 
                 if (currentIndex === 3) {
                     taskButton.disabled = true;
-                    setTimeout(() => {
+                    startTimer(120, () => {
                         taskButton.disabled = false;
                         statusText.textContent = "Break over! Time for a breathing exercise!";
                         exerciseContainer.style.display = "block";
-                    }, 120000);
+                    });
                 }
 
                 if (currentIndex === images.length - 1) {
@@ -209,11 +215,26 @@
             }
         });
 
+        function startTimer(duration, callback) {
+            let timer = duration;
+            clearInterval(timerInterval);
+            timerInterval = setInterval(() => {
+                const minutes = Math.floor(timer / 60);
+                const seconds = timer % 60;
+                timerContainer.textContent = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+                if (--timer < 0) {
+                    clearInterval(timerInterval);
+                    callback();
+                }
+            }, 1000);
+        }
+
         function startExercise() {
-            const audioPlayer = document.getElementById("audio-player");
+            const audioPlayer = document.getElementById('audio-player');
             audioPlayer.style.display = "block";
             audioPlayer.play();
         }
     </script>
 </body>
 </html>
+
