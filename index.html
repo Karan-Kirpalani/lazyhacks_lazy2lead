@@ -8,7 +8,6 @@
         body {
             background-color: #FDEFB2;
             font-family: Arial, sans-serif;
-            text-align: center;
             margin: 0;
             padding: 0;
             display: flex;
@@ -26,18 +25,31 @@
             background-color: #ffcc80;
             padding: 20px;
             border-bottom: 4px solid #e68a00;
+            text-align: center;
+        }
+
+        .content-container {
+            display: flex;
+            flex: 1;
+            padding: 20px;
+            gap: 20px;
+        }
+
+        iframe {
+            flex: 1;
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         }
 
         .main-container {
+            flex: 1;
             display: flex;
             flex-direction: column;
             align-items: center;
-            flex: 1;
-            padding: 20px;
         }
 
         .progress-container {
-            margin: 20px 0;
             width: 300px;
             padding: 20px;
             border-radius: 10px;
@@ -123,26 +135,32 @@
         <h2>Welcome to the Study Zone</h2>
     </section>
 
-    <div class="main-container">
-        <div class="progress-container">
-            <img id="progressImage" class="progress-image" 
-                src="https://raw.githubusercontent.com/Karan-Kirpalani/progress_bar/ad880d158e52a886fe9d362a0b8935376b2817c7/1.png" 
-                alt="Progress Image">
-            <button id="taskButton" class="task-button">Complete Task</button>
-            <div id="statusText" class="status-text">Starting out... Feeling lazy!</div>
-        </div>
+    <div class="content-container">
+        <iframe 
+            src="https://docs.google.com/spreadsheets/d/e/2PACX-1vSTfRDUKrXsbc6phRH61jMMin0mIFwsyzzIaOKBz4h54Jj0vHqpZyy25oluQHBVh-kJ9vUYVmGfXxBQ/pubhtml" 
+            title="Google Sheet"></iframe>
 
-        <div id="exerciseContainer" class="exercise-container">
-            <h1>1-Minute Breathing Exercise</h1>
-            <p>
-                Relax and focus on your breathing.  
-                Breathe in deeply through your nose for 4 seconds, hold for 4 seconds, and then exhale slowly for 6 seconds.  
-            </p>
-            <button onclick="startExercise()">Start Exercise</button>
-            <audio id="audio-player" controls style="display: none;">
-                <source src="breathing.mp3" type="audio/mp3">
-                Your browser does not support the audio element.
-            </audio>
+        <div class="main-container">
+            <div class="progress-container">
+                <img id="progressImage" class="progress-image" 
+                    src="https://raw.githubusercontent.com/Karan-Kirpalani/progress_bar/ad880d158e52a886fe9d362a0b8935376b2817c7/1.png" 
+                    alt="Progress Image">
+                <button id="taskButton" class="task-button">Complete Task</button>
+                <div id="statusText" class="status-text">Starting out... Feeling lazy!</div>
+            </div>
+
+            <div id="exerciseContainer" class="exercise-container">
+                <h1>1-Minute Breathing Exercise</h1>
+                <p>
+                    Relax and focus on your breathing.  
+                    Breathe in deeply through your nose for 4 seconds, hold for 4 seconds, and then exhale slowly for 6 seconds.  
+                </p>
+                <button onclick="startExercise()">Start Exercise</button>
+                <audio id="audio-player" controls style="display: none;">
+                    <source src="breathing.mp3" type="audio/mp3">
+                    Your browser does not support the audio element.
+                </audio>
+            </div>
         </div>
     </div>
 
